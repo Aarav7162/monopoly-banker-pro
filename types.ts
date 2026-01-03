@@ -70,7 +70,6 @@ export interface GameRules {
 export interface AuctionState {
   active: boolean;
   propertyId: number;
-  // We no longer need tracking for live bids, just the target property
 }
 
 export interface TradeOffer {
@@ -117,3 +116,16 @@ export interface GameState {
   viewMode: 'BOARD' | 'PLAYER_WALLET'; // For simulating mobile view
   localPlayerId: string | null; // For simulating "my phone"
 }
+
+// Network Types
+export type NetworkMessage = 
+ | { type: 'SYNC', state: GameState }
+ | { type: 'PLAYER_JOIN', player: Player }
+ | { type: 'ACTION_ROLL', d1: number, d2: number }
+ | { type: 'ACTION_BUY' }
+ | { type: 'ACTION_AUCTION_START' }
+ | { type: 'ACTION_AUCTION_RESOLVE', amount: number, winnerId: string }
+ | { type: 'ACTION_PAY_RENT' }
+ | { type: 'ACTION_END_TURN' }
+ | { type: 'ACTION_TRADE', offer: TradeOffer }
+ | { type: 'START_GAME' };
