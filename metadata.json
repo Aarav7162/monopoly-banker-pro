@@ -1,0 +1,5 @@
+{
+  "name": "Monopoly Banker Pro",
+  "description": "An intelligent digital banker companion for physical Monopoly games. Tracks positions, calculates rent automatically, manages properties, and handles financial transactions with zero math errors.",
+  "requestFramePermissions": []
+}

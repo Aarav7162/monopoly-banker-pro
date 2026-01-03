@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monopoly Banker Pro: Cyber Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+      :root {
+        --neon-blue: #00f3ff;
+        --neon-pink: #ff00ff;
+        --neon-green: #0aff00;
+        --neon-gold: #ffd700;
+        --bg-dark: #050505;
+        --glass-border: rgba(0, 243, 255, 0.3);
+      }
+
+      body {
+        background-color: var(--bg-dark);
+        color: #e0e0e0;
+        font-family: 'Rajdhani', sans-serif;
+        background-image: 
+          linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+        background-size: 30px 30px;
+      }
+
+      /* Techy Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000;
+        border-left: 1px solid #111;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border: 1px solid var(--neon-blue);
+        border-radius: 0;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--neon-blue);
+      }
+
+      /* Cyberpunk Utilities */
+      .cyber-card {
+        background: rgba(10, 15, 20, 0.85);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .cyber-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--neon-blue), transparent);
+        opacity: 0.5;
+      }
+
+      .cyber-card-active {
+        border-color: var(--neon-gold);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+      }
+      .cyber-card-active::before {
+        background: var(--neon-gold);
+      }
+
+      .cyber-btn {
+        clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: 'Share Tech Mono', monospace;
+      }
+      .cyber-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        filter: brightness(1.2);
+        box-shadow: 0 0 15px currentColor;
+      }
+      .cyber-btn:active:not(:disabled) {
+        transform: translateY(1px);
+      }
+
+      .neon-text {
+        text-shadow: 0 0 5px currentColor;
+      }
+
+      .grid-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      /* Scanline Effect */
+      .scanline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: rgba(0, 243, 255, 0.3);
+        opacity: 0.4;
+        animation: scan 6s linear infinite;
+        pointer-events: none;
+        z-index: 9999;
+      }
+      @keyframes scan {
+        0% { top: -5%; }
+        100% { top: 105%; }
+      }
+
+      /* 3D Dice Overrides */
+      .cube__face {
+        background: rgba(0, 10, 20, 0.9);
+        border: 2px solid var(--neon-blue);
+        box-shadow: 0 0 10px var(--neon-blue) inset;
+        color: var(--neon-blue);
+      }
+      .dot {
+        background-color: var(--neon-blue);
+        box-shadow: 0 0 5px var(--neon-blue);
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Rajdhani', 'sans-serif'],
+              mono: ['Share Tech Mono', 'monospace'],
+            },
+            colors: {
+              neon: {
+                blue: '#00f3ff',
+                pink: '#ff00ff',
+                green: '#0aff00',
+                gold: '#ffd700',
+              }
+            },
+            animation: {
+              'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'glitch': 'glitch 1s linear infinite',
+            },
+            keyframes: {
+              glitch: {
+                '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                '62%': { transform: 'translate(0,0) skew(5deg)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "vite": "https://esm.sh/vite@^7.3.0"
+  }
+}
+</script>
+  </head>
+  <body class="bg-black text-gray-200 overflow-hidden">
+    <div class="scanline"></div>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
